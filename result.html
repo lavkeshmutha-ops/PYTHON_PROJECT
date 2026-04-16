@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSolver - Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 MathSolver - Result</h1>
+            <a href="/" class="back-link">← Back to input</a>
+        </header>
+
+        <main>
+            <div class="result-box">
+                <div class="problem-info">
+                    <p class="source">{{ data.source_label }}</p>
+                    <p class="problem-type">{{ data.type_icon }} {{ data.type_label }}</p>
+                    <p class="input-expression">Input: <strong>{{ data.expression }}</strong></p>
+                </div>
+
+                {% if data.error_message %}
+                <div class="error">
+                    <strong>Error:</strong> {{ data.error_message }}
+                </div>
+                {% else %}
+                <div class="answer-section">
+                    <h2>Answer</h2>
+                    <div class="answer">{{ data.answer }}</div>
+                </div>
+
+                <div class="description">
+                    <p>{{ data.type_description }}</p>
+                </div>
+
+                {% if data.has_steps %}
+                <div class="steps-section">
+                    <h2>Step-by-Step Solution</h2>
+                    <ol class="steps">
+                    {% for step in data.steps %}
+                        <li>
+                            <strong>{{ step.title }}</strong>
+                            <p>{{ step.explanation }}</p>
+                        </li>
+                    {% endfor %}
+                    </ol>
+                </div>
+                {% endif %}
+
+                {% if data.problem_type == "simplify" and data.extra_info %}
+                <div class="extra-info">
+                    <h3>Additional Forms</h3>
+                    {% if data.extra_info.expanded %}
+                    <p><strong>Expanded:</strong> {{ data.extra_info.expanded }}</p>
+                    {% endif %}
+                    {% if data.extra_info.factored %}
+                    <p><strong>Factored:</strong> {{ data.extra_info.factored }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

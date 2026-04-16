@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSolver - Step-by-Step Math Problem Solver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 MathSolver</h1>
+            <p>Enter a math problem or upload an image to get step-by-step solutions</p>
+        </header>
+
+        <main>
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form action="/solve" method="POST" enctype="multipart/form-data">
+                <div class="input-section">
+                    <label for="math_text">Type your math problem:</label>
+                    <input type="text" id="math_text" name="math_text" placeholder="e.g., 2x + 3 = 11, diff(x^2), integrate(3*x + 5)">
+                </div>
+
+                <div class="divider">OR</div>
+
+                <div class="upload-section">
+                    <label for="math_image">Upload an image:</label>
+                    <input type="file" id="math_image" name="math_image" accept="image/*">
+                </div>
+
+                <button type="submit">Solve</button>
+            </form>
+
+            <div class="help">
+                <h3>Supported formats:</h3>
+                <ul>
+                    <li><strong>Algebra:</strong> 2x + 3 = 11, x^2 - 4 = 0</li>
+                    <li><strong>Derivative:</strong> diff(x^3), diff(x^2 + 2*x + 1)</li>
+                    <li><strong>Integral:</strong> integrate(x^2), integrate(3*x + 5)</li>
+                    <li><strong>Simplify:</strong> (x^2 + 2*x + 1)</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
